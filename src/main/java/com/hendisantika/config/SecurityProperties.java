@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,4 +28,16 @@ public class SecurityProperties {
     private String apiMatcher;
     private Cors cors;
     private String issuerUri;
+
+    public CorsConfiguration getCorsConfiguration() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(cors.getAllowedOrigins());
+        corsConfiguration.setAllowedMethods(cors.getAllowedMethods());
+        corsConfiguration.setAllowedHeaders(cors.getAllowedHeaders());
+        corsConfiguration.setExposedHeaders(cors.getExposedHeaders());
+        corsConfiguration.setAllowCredentials(cors.getAllowCredentials());
+        corsConfiguration.setMaxAge(cors.getMaxAge());
+
+        return corsConfiguration;
+    }
 }
