@@ -7,6 +7,11 @@
 3. Run the Keycloak application: https://github.com/keycloak/keycloak-containers/tree/main/docker-compose-examples
 4. Create Keycloak Admin username & password
 5. Run the application: `mvn clean spring-boot:run`
+6. Run Keycloak via Docker
+
+```shell
+docker run -p 8081:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:17.0.1 start-dev
+``` 
 
 Get JWT
 
