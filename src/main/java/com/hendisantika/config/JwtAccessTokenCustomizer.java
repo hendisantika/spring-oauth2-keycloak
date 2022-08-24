@@ -90,4 +90,21 @@ public class JwtAccessTokenCustomizer extends DefaultAccessTokenConverter implem
         LOG.debug("End extractRoles: roles = {}", authorityList);
         return authorityList;
     }
+
+    private Set<String> extractClients(JsonNode jwt) {
+        LOG.debug("Begin extractClients: jwt = {}", jwt);
+        if (jwt.has(CLIENT_NAME_ELEMENT_IN_JWT)) {
+            JsonNode resourceAccessJsonNode = jwt.path(CLIENT_NAME_ELEMENT_IN_JWT);
+            final Set<String> clientNames = new HashSet<>();
+            resourceAccessJsonNode.fieldNames()
+                    .forEachRemaining(clientNames::add);
+
+            LOG.debug("End extractClients: clients = {}", clientNames);
+            return clientNames;
+
+        } else {
+            throw new IllegalArgumentException("Expected element " + CLIENT_NAME_ELEMENT_IN_JWT + " not found in token");
+        }
+
+    }
 }
