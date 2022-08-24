@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.JwtAccessTokenConverterConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,5 +31,11 @@ public class JwtAccessTokenCustomizer extends DefaultAccessTokenConverter implem
     public JwtAccessTokenCustomizer(ObjectMapper mapper) {
         this.mapper = mapper;
         LOG.info("Initialized {}", JwtAccessTokenCustomizer.class.getSimpleName());
+    }
+
+    @Override
+    public void configure(JwtAccessTokenConverter converter) {
+        converter.setAccessTokenConverter(this);
+        LOG.info("Configured {}", JwtAccessTokenConverter.class.getSimpleName());
     }
 }
