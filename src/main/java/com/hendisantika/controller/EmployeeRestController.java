@@ -1,6 +1,7 @@
 package com.hendisantika.controller;
 
 import com.hendisantika.config.SecurityContextUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import java.util.Set;
  * Time: 18:43
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/employees")
 public class EmployeeRestController {
