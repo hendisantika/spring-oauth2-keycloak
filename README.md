@@ -33,3 +33,4 @@ curl --location --request GET 'localhost:8081/api/v1/employees/roles' \
 
 * https://medium.com/@bcarunmail/securing-rest-api-using-keycloak-and-spring-oauth2-6ddf3a1efcc2
 * https://medium.com/@bcarunmail/accessing-secure-rest-api-using-spring-oauth2resttemplate-ef18377e2e05
+* https://temfack.com/keycloak-sso-on-linux-server-with-docker-and-ssl/ 
