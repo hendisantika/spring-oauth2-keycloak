@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-oauth2-keycloak
@@ -40,4 +42,16 @@ public class SecurityProperties {
 
         return corsConfiguration;
     }
+
+    @Getter
+    @Setter
+    public static class Cors {
+        private List<String> allowedOrigins;
+        private List<String> allowedMethods;
+        private List<String> allowedHeaders;
+        private List<String> exposedHeaders;
+        private Boolean allowCredentials;
+        private Long maxAge;
+    }
+
 }
