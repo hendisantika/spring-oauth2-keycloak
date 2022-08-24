@@ -2,6 +2,10 @@ package com.hendisantika.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,5 +26,27 @@ public class SecurityContextUtils {
     private static final String ANONYMOUS = "anonymous";
 
     private SecurityContextUtils() {
+    }
+
+    public static String getUserName() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        String username = ANONYMOUS;
+
+        if (null != authentication) {
+            if (authentication.getPrincipal() instanceof UserDetails springSecurityUser) {
+                username = springSecurityUser.getUsername();
+
+            } else if (authentication.getPrincipal() instanceof String) {
+                username = (String) authentication.getPrincipal();
+
+            } else {
+                LOGGER.debug("User details not found in Security Context");
+            }
+        } else {
+            LOGGER.debug("Request not authenticated, hence no user name available");
+        }
+
+        return username;
     }
 }
