@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-oauth2-keycloak
@@ -24,5 +26,11 @@ public class EmployeeRestController {
     @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public ResponseEntity<String> getAuthorizedUserName() {
         return ResponseEntity.ok(SecurityContextUtils.getUserName());
+    }
+
+    @GetMapping(path = "/roles")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    public ResponseEntity<Set<String>> getAuthorizedUserRoles() {
+        return ResponseEntity.ok(SecurityContextUtils.getUserRoles());
     }
 }
