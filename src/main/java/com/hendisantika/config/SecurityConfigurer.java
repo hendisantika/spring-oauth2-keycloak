@@ -1,5 +1,6 @@
 package com.hendisantika.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -75,4 +76,8 @@ public class SecurityConfigurer extends ResourceServerConfigurerAdapter {
         return source;
     }
 
+    @Bean
+    public JwtAccessTokenCustomizer jwtAccessTokenCustomizer(ObjectMapper mapper) {
+        return new JwtAccessTokenCustomizer(mapper);
+    }
 }
