@@ -1,0 +1,41 @@
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:16-alpine3.20
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+  keycloak:
+    #    image: quay.io/keycloak/keycloak:legacy
+    image: quay.io/keycloak/keycloak:24.0.4
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Pa55w0rd
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+      KEYCLOAK_IMPORT: ./PowerRanger.json
+    command:
+      - start-dev
+      #- --import-realm
+    #      - "-Dkeycloak.import=/opt/keycloak/data/import/PowerRanger.json"
+    ports:
+      - 8088:8080
+    depends_on:
+      - postgres
+    #volumes:
+    #  - ./PowerRanger.json/:/opt/keycloak/data/import/PowerRanger.json
+
